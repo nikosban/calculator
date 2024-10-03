@@ -3,6 +3,7 @@ let numberA;
 let numberB;
 let operator;
 let result;
+let resultsArea;
 let numberArray = [];
 
 // initialise the app
@@ -31,17 +32,30 @@ function initCalc () {
 
   // initialise the result with an empty string
 
-  const resultsArea = document.getElementById("resultsArea");
+  resultsArea = document.getElementById("resultsArea");
 
   resultsArea.textContent = '0';
 
   const resultBtn = document.getElementById("operate");
 
   resultBtn.addEventListener("click", () => {
-    runCalculation();
+    runCalculation(resultsArea);
+  })
+
+  const resetBtn = document.getElementById("reset");
+
+  resetBtn.addEventListener("click", () => {
+    resetCalculator();
+  })
+
+  const backspace = document.getElementById("backspace");
+
+  backspace.addEventListener("click", () => {
+    numberArray.pop();
   })
 }
 
+// check which getNumber to run
 function getNumber(number) {
    if (!operator) {
     getNumberA(number);
@@ -65,9 +79,23 @@ function getNumberA (number) {
 //get the operator
 
 function getOperator(operation) {
+
+  if (result) {
+    numberA = result;
+    numberArray = [];
+    result = null;
+  }
+
+  else if(!numberA) {
+    resultsArea.textContent = "select a number";
+  }
+
+  else {
   operator = operation.value;
   resultsArea.textContent = numberA + operator;
-  numberArray = [];
+  numberArray= [];
+  }
+  
 }
 
 //get the second number
@@ -81,10 +109,13 @@ function getNumberB(number) {
 
 //run the calculation
 
-function runCalculation() {
+function runCalculation(resultsArea) {
   if (!numberA) {
-    getNumber(number);
     resultsArea.textContent = "Select a number";
+  }
+
+   else if (numberB === 0 && operator === "/") {
+    resultsArea.textContent = "Bobcat";
   }
 
   else {
@@ -105,11 +136,21 @@ function runCalculation() {
         result = numberA % numberB;
         break;
     }
+
+    resultsArea.textContent = result;
   }
 
-  resultsArea.textContent = result;
+
 }
 
 
+function resetCalculator() {
+  numberA = null;
+  numberB = null;
+  result = null;
+  operator = null;
+  numberArray = [];
+  resultsArea.textContent = "0"
+}
 
 initCalc();
