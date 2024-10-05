@@ -42,16 +42,19 @@ function initCalc () {
     runCalculation(resultsArea);
   })
 
+  //add a reset function
   const resetBtn = document.getElementById("reset");
 
   resetBtn.addEventListener("click", () => {
     resetCalculator();
   })
 
+
+  // add a delete function
   const backspace = document.getElementById("backspace");
 
   backspace.addEventListener("click", () => {
-    numberArray.pop();
+    numberArray = numberArray.slice(-1);
   })
 }
 
