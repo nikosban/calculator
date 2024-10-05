@@ -1,87 +1,77 @@
 // initialise global variables
-let numberA;
-let numberB;
+let numberA = "";
+let numberB = "";
 let operator;
-let result;
-let resultsArea;
+let result = 0;
 let numberArray = [];
 
-// initialise the app
+//get the result area
+const resulstArea = document.getElementById("resultsArea");
+resulstArea.textContent = result;
 
-function initCalc () {
+//show the previous operation
+const previousOperation = document.getElementById("previousCalc");
 
-  // add event listners to the number buttons
 
-   const numberBtn = Array.from(document.getElementsByClassName("numberBtn"));
+//intialise calculator
 
-   numberBtn.forEach((number) => {
+function initCalc() {
+
+  // get all number buttons
+  const numberBtn = Array.from(document.getElementsByClassName("numberBtn"));
+  numberBtn.forEach((number) => {
     number.addEventListener("click", () => {
       getNumber(number);
-    } )
-   })
-
-  // add event listeners to the operator buttons
-
-  const operBtn = Array.from(document.getElementsByClassName("operator"));
-
-  operBtn.forEach((operation) => {
-    operation.addEventListener("click", () => {
-      getOperator(operation);
     })
   })
 
-  // initialise the result with an empty string
-
-  resultsArea = document.getElementById("resultsArea");
-
-  resultsArea.textContent = '0';
-
-  const resultBtn = document.getElementById("operate");
-
-  resultBtn.addEventListener("click", () => {
-    runCalculation(resultsArea);
+  // get all operator buttons
+  const opBtn = Array.from(document.getElementsByClassName("operator"));
+  opBtn.forEach((operBtn) => {
+    operBtn.addEventListener("click", () => {
+      getOperator(operBtn);
+    })
   })
 
-  //add a reset function
+  //get the calulate button
+  const operate = document.getElementById("operate");
+  operate.addEventListener("click", () => {
+    calculate();
+  })
+
+  //get the backspace button
+  const deleteBtn = document.getElementById("backspace");
+  deleteBtn.addEventListener("click", () => {
+    backspace();
+  })
+
+  //get the reset function
   const resetBtn = document.getElementById("reset");
-
   resetBtn.addEventListener("click", () => {
-    resetCalculator();
+    reset();
   })
 
-
-  // add a delete function
-  const backspace = document.getElementById("backspace");
-
-  backspace.addEventListener("click", () => {
-    numberArray = numberArray.slice(-1);
-  })
 }
 
-// check which getNumber to run
+// based on the selection order get the number
 function getNumber(number) {
-   if (!operator) {
-    getNumberA(number);
-   }
 
-   else {
-    getNumberB(number);
-   }
+  if (!operator) {
+    if (number.value === "." && numberA.includes(".")) return;
+    numberA += number.value;
+    resulstArea.textContent = numberA;
+  }
+
+  else {
+    if (number.value === "." && numberB.includes(".")) return;
+    numberB += number.value;
+    resulstArea.textContent = numberA + operator + numberB;
+  }
+
 }
 
-
-//get the first number
-
-function getNumberA (number) {
-  numberArray.push(number.value);
-  numberA = numberArray.join('');
-  numberA = parseFloat(numberA);
-  resultsArea.textContent = numberA;
-}
-
-//get the operator
-
-function getOperator(operation) {
+//get the operator and chain calculate
+function getOperator(operBtn) {
 
   if (result) {
     numberA = result;
@@ -89,71 +79,83 @@ function getOperator(operation) {
     result = null;
   }
 
-  else if(!numberA) {
-    resultsArea.textContent = "select a number";
+  if(numberA === "") {
+    numberA = "0";
+    operator = operBtn.value;
+    resulstArea.textContent = numberA + operator;
   }
 
   else {
-  operator = operation.value;
-  resultsArea.textContent = numberA + operator;
-  numberArray= [];
+    operator = operBtn.value;
+    resulstArea.textContent = numberA + operator;
   }
   
 }
 
-//get the second number
+//run the calculation
+function calculate() {
 
-function getNumberB(number) {
-  numberArray.push(number.value);
-  numberB = numberArray.join('');
+  numberA = parseFloat(numberA);
   numberB = parseFloat(numberB);
-  resultsArea.textContent = numberA + operator + numberB;
+
+  if (!numberB) {
+    resulstArea.textContent = "You are a donkey"
+  }
+  
+  else {
+    switch(operator) {
+      case "+":
+      result = numberA + numberB;
+      break;
+      case "-":
+      result = numberA - numberB;
+      break;
+      case "*":
+      result = numberA * numberB;
+      break;
+      case "/":
+      result = numberA / numberB;
+      break;
+      case "%":
+      result = numberA % numberB;
+      break;
+    }
+
+    resulstArea.textContent = result;
+    previousOperation.textContent = numberA + operator + numberB;
+
+  }
 }
 
-//run the calculation
+// remove the last number from the string
+function backspace() {
 
-function runCalculation(resultsArea) {
-  if (!numberA) {
-    resultsArea.textContent = "Select a number";
+  if (numberB !== "") {
+    numberB = numberB.slice(0,-1);
+    resulstArea.textContent = numberA + operator + numberB;
   }
 
-   else if (numberB === 0 && operator === "/") {
-    resultsArea.textContent = "Bobcat";
+  else if (operator) {
+    operator = null;
+    resulstArea.textContent = numberA;
   }
 
   else {
-    switch (operator) {
-      case "+":
-        result = numberA + numberB;
-        break;
-      case "-":
-        result = numberA - numberB;
-        break;
-      case "/":
-        result = numberA / numberB;
-        break;
-      case "*":
-        result = numberA * numberB;
-        break;
-      case "%":
-        result = numberA % numberB;
-        break;
-    }
-
-    resultsArea.textContent = result;
+    numberA = numberA.slice(0,-1);
+    resulstArea.textContent = numberA;
   }
-
 
 }
 
+//reset the calculator
+function reset() {
+numberA = "";
+numberB = "";
+operator = null;
+result = 0;
+numberArray = [];
 
-function resetCalculator() {
-  numberA = null;
-  numberB = null;
-  result = null;
-  operator = null;
-  numberArray = [];
-  resultsArea.textContent = "0"
+resulstArea.textContent = result;
 }
 
 initCalc();
