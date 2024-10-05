@@ -75,7 +75,7 @@ function getOperator(operBtn) {
 
   if (result) {
     numberA = result;
-    numberArray = [];
+    numberB = "";
     result = null;
   }
 
@@ -98,9 +98,11 @@ function calculate() {
   numberA = parseFloat(numberA);
   numberB = parseFloat(numberB);
 
-  if (!numberB) {
+  if (!numberA) {
     resulstArea.textContent = "You are a donkey"
+    previousOperation.textContent= " "
   }
+
   
   else {
     switch(operator) {

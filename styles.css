@@ -1,0 +1,75 @@
+* {
+    font-family: "Inconsolata", system-ui;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 240px;
+    background-color: #FAFAFA;
+}
+
+.container {
+    display: grid;
+    gap: 24px;
+    max-width: 420px;
+}
+
+.calculator {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+#result {
+    display: grid;
+    gap: 8px;
+    min-height: 64px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--Zinc-300, #D4D4D8);
+    background: linear-gradient(180deg, #27272A 0%, #3F3F46 100%);
+    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.08);
+
+    text-align: right;
+}
+
+#previousCalc {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #A1A1AA;
+}
+
+#resultsArea {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px;
+    color: #FAFAFA;
+}
+
+button {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    cursor: pointer;
+    min-height: 40px;
+
+    padding: 12px;
+
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 0px 0px 1px rgba(0, 0, 0, 0.08);
+
+}
+
+#operate {
+    grid-column: span 2;
+    background-color: #2563EB;
+    color: #FAFAFA;
+}
+
+button:hover {
+    background-color: #F4F4F5;
+}

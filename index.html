@@ -4,36 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <link href="./styles.css" rel="stylesheet">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+    </style>
 </head>
 <body>
-    
-    <button class="numberBtn" value="0">0</button>
-    <button class="numberBtn" value="1">1</button>
-    <button class="numberBtn" value="2">2</button>
-    <button class="numberBtn" value="3">3</button>
-    <button class="numberBtn" value="4">4</button>
-    <button class="numberBtn" value="5">5</button>
-    <button class="numberBtn" value="6">6</button>
-    <button class="numberBtn" value="7">7</button>
-    <button class="numberBtn" value="8">8</button>
-    <button class="numberBtn" value="9">9</button>
-    <button class="numberBtn" value=".">.</button>
-   
-    <button class="operator" value="+">+</button>
-    <button class="operator" value="-">-</button>
-    <button class="operator" value="/">/</button>
-    <button class="operator" value="*">*</button>
-    <button class="operator" value="%">%</button>
 
-    <button id="operate" value="=">=</button>
-    <button id="reset">reset</button>
-    <button id="backspace"><=</button>
-
-    <h1 id="result">
-        <p id="previousCalc"></p>
-        <p id="resultsArea"></p>
-    </h1>
-
-    <script src="./main.js"></script>
+    <div class="container">
+        <h1 id="result">
+            <p id="previousCalc"></p>
+            <p id="resultsArea"></p>
+        </h1>
+        
+        <div class="calculator">
+            <button id="reset">Clear</button>
+            <button id="backspace"><=</button>
+            <button class="operator" value="%">%</button>
+            <button class="operator" value="/">/</button>
+            <button class="numberBtn" value="9">9</button>
+            <button class="numberBtn" value="8">8</button>
+            <button class="numberBtn" value="7">7</button>
+            <button class="operator" value="*">*</button>
+            <button class="numberBtn" value="6">6</button>
+            <button class="numberBtn" value="5">5</button>
+            <button class="numberBtn" value="4">4</button>
+            <button class="operator" value="-">-</button>
+            <button class="numberBtn" value="3">3</button>
+            <button class="numberBtn" value="2">2</button>
+            <button class="numberBtn" value="1">1</button>
+            <button class="operator" value="+">+</button>
+            <button class="numberBtn" value="0">0</button>
+            <button class="numberBtn" value=".">.</button>
+            
+            <button id="operate" value="=">=</button>
+            
+            
+        </div>
+    </div>
+<script src="./main.js"></script>
 </body>
 </html>
